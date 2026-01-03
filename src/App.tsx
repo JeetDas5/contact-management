@@ -5,7 +5,7 @@ import { ContactForm } from "@/components/ContactForm";
 import { ContactTable, type Contact } from "@/components/ContactTable";
 import "./index.css";
 
-const API_URL = "http://localhost:5000/api/contacts";
+const API_URL = `http://localhost:5000/api/contacts`;
 
 function App() {
   const [contacts, setContacts] = useState<Contact[]>([]);
