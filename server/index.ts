@@ -6,7 +6,7 @@ import contactRoutes from "./routes/contacts.ts"
 
 const app = express();
 const PORT: string | number =
-  process.env.BACKEND_PORT || process.env.PORT || 5000;
+  process.env.VITE_BACKEND_PORT || process.env.PORT || 5000;
 const MONGODB_URI: string =
   process.env.MONGO_URI || "";
 

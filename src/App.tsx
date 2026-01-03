@@ -5,7 +5,10 @@ import { Toaster, toast } from "react-hot-toast";
 import { ContactForm } from "@/components/ContactForm";
 import { ContactTable, type Contact } from "@/components/ContactTable";
 
-const API_URL = `${process.env.BACKEND_URL}/api/contacts`;
+const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+const api = axios.create({
+  baseURL: `${BACKEND_URL}/api/contacts`,
+});
 
 function App() {
   const [contacts, setContacts] = useState<Contact[]>([]);
@@ -17,7 +20,7 @@ function App() {
 
   const fetchContacts = async () => {
     try {
-      const response = await axios.get(API_URL);
+      const response = await api.get("/");
       setContacts(response.data);
     } catch (error) {
       toast.error("Failed to load contacts");
@@ -34,7 +37,7 @@ function App() {
     message: string;
   }) => {
     try {
-      const response = await axios.post(API_URL, contactData);
+      const response = await api.post("/", contactData);
       const newContact = response.data;
       setContacts((prev) => [newContact, ...prev]);
       toast.success("Contact added successfully!");
@@ -47,7 +50,7 @@ function App() {
 
   const handleDeleteContact = async (id: string) => {
     try {
-      await axios.delete(`${API_URL}/${id}`);
+      await api.delete(`/${id}`);
       setContacts((prev) => prev.filter((contact) => contact._id !== id));
       toast.success("Contact deleted successfully!");
     } catch (error) {

@@ -12,6 +12,6 @@ export default defineConfig({
     },
   },
   server: {
-    port: parseInt(process.env.FRONTEND_PORT || "5173"),
+    port: parseInt(process.env.VITE_FRONTEND_PORT || "5173"),
   },
 });
