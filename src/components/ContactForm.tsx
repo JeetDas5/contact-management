@@ -26,14 +26,12 @@ export function ContactForm({ onSubmit }: ContactFormProps) {
   const validateForm = () => {
     const newErrors: Record<string, string> = {};
 
-    // Name validation
     if (!formData.name.trim()) {
       newErrors.name = "Name is required";
     } else if (formData.name.trim().length < 2) {
       newErrors.name = "Name must be at least 2 characters";
     }
 
-    // Email validation
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!formData.email.trim()) {
       newErrors.email = "Email is required";
@@ -41,7 +39,6 @@ export function ContactForm({ onSubmit }: ContactFormProps) {
       newErrors.email = "Please enter a valid email address";
     }
 
-    // Phone validation
     const phoneRegex = /^[\d\s\-+()]{10,}$/;
     if (!formData.phone.trim()) {
       newErrors.phone = "Phone number is required";
@@ -59,7 +56,6 @@ export function ContactForm({ onSubmit }: ContactFormProps) {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
 
-    // Clear error when user starts typing
     if (errors[name]) {
       setErrors((prev) => ({ ...prev, [name]: "" }));
     }
@@ -73,7 +69,7 @@ export function ContactForm({ onSubmit }: ContactFormProps) {
     setIsSubmitting(true);
     try {
       await onSubmit(formData);
-      // Reset form on success
+
       setFormData({ name: "", email: "", phone: "", message: "" });
       setErrors({});
     } finally {
@@ -95,7 +91,6 @@ export function ContactForm({ onSubmit }: ContactFormProps) {
       </CardHeader>
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-5">
-          {/* Name Field */}
           <div className="space-y-2">
             <Label htmlFor="name" className="text-sm font-medium">
               Name <span className="text-red-500">*</span>
@@ -120,7 +115,6 @@ export function ContactForm({ onSubmit }: ContactFormProps) {
             )}
           </div>
 
-          {/* Email Field */}
           <div className="space-y-2">
             <Label htmlFor="email" className="text-sm font-medium">
               Email <span className="text-red-500">*</span>
@@ -145,7 +139,6 @@ export function ContactForm({ onSubmit }: ContactFormProps) {
             )}
           </div>
 
-          {/* Phone Field */}
           <div className="space-y-2">
             <Label htmlFor="phone" className="text-sm font-medium">
               Phone <span className="text-red-500">*</span>
@@ -170,7 +163,6 @@ export function ContactForm({ onSubmit }: ContactFormProps) {
             )}
           </div>
 
-          {/* Message Field */}
           <div className="space-y-2">
             <Label htmlFor="message" className="text-sm font-medium">
               Message <span className="text-gray-400">(optional)</span>
@@ -186,7 +178,6 @@ export function ContactForm({ onSubmit }: ContactFormProps) {
             />
           </div>
 
-          {/* Submit Button */}
           <Button
             type="submit"
             disabled={!isFormValid || isSubmitting}
