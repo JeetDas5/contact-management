@@ -1,17 +1,16 @@
+import "./index.css";
+import axios from "axios";
 import { useState, useEffect } from "react";
 import { Toaster, toast } from "react-hot-toast";
-import axios from "axios";
 import { ContactForm } from "@/components/ContactForm";
 import { ContactTable, type Contact } from "@/components/ContactTable";
-import "./index.css";
 
-const API_URL = `http://localhost:5000/api/contacts`;
+const API_URL = `${process.env.BACKEND_URL}/api/contacts`;
 
 function App() {
   const [contacts, setContacts] = useState<Contact[]>([]);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Fetch contacts on mount
   useEffect(() => {
     fetchContacts();
   }, []);
@@ -59,7 +58,6 @@ function App() {
 
   return (
     <div className="min-h-screen bg-linear-to-br from-background via-muted to-secondary dark:from-gray-950 dark:via-gray-900 dark:to-gray-950">
-     
       <Toaster
         position="top-right"
         toastOptions={{
@@ -84,7 +82,6 @@ function App() {
         }}
       />
 
-      {/* Header */}
       <header className="border-b border-primary/20 bg-background/80 dark:bg-gray-900/80 backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4">
           <h1 className="text-3xl font-bold bg-linear-to-r from-primary via-cyan-500 to-teal-400 bg-clip-text text-transparent">
@@ -96,14 +93,11 @@ function App() {
         </div>
       </header>
 
-      {/* Main Content */}
       <main className="container mx-auto px-4 py-8 space-y-8">
-        {/* Contact Form */}
         <section>
           <ContactForm onSubmit={handleAddContact} />
         </section>
 
-        {/* Contacts Table */}
         <section>
           {isLoading ? (
             <div className="flex items-center justify-center py-12">
@@ -136,7 +130,6 @@ function App() {
         </section>
       </main>
 
-      {/* Footer */}
       <footer className="border-t bg-white/50 dark:bg-gray-900/50 mt-auto">
         <div className="container mx-auto px-4 py-4 text-center text-sm text-muted-foreground">
           © {new Date().getFullYear()} Contact Manager. Built with 💖 by Jeet
