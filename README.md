@@ -39,7 +39,7 @@ Installation
 
     ```bash
     git clone https://github.com/JeetDas5/contact-management.git
-    cd collEdge-connect
+    cd contact-management
     ```
 
 2.  **Install dependencies:**
